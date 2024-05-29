@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create/Edit Category</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .btn-primary {
+            width: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container mt-5">
+    <h2>Create/Edit Category</h2>
+    <form th:action="@{/updateCA}" method="post">
+        <!-- Hidden field for category ID -->
+        <input type="hidden" id="id" name="id" th:value="${category.id}">
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <!-- Use Thymeleaf to populate the value if editing -->
+            <input type="text" class="form-control" id="category" name="category" th:value="${category.category}" required>
+        </div>
+        <div class="form-group">
+            <label for="categoryParent">Parent Category:</label>
+            <input type="text" class="form-control" id="categoryParent" name="categoryParent" th:value="${category.categoryParent}">
+        </div>
+        <!-- Use Thymeleaf to change button text based on edit or create -->
+        <button type="submit" class="btn btn-primary" th:text="${category.id} ? 'Update' : 'Create'">Create</button>
+    </form>
+</div>
+</body>
+
+</html>

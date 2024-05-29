@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Template.html"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <style>
+        /* Additional CSS styles for enhanced appearance */
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/white-minimalistic-abstract-3d-background-neon-light-from-lamps-walls-circular-stage_334678-375.jpg');
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #ffffff;
+            color: #495057;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 5px;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+        <h1>Categories</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Parent Category</th>
+                <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.category}"></td>
+                <td th:text="${category.categoryParent}"></td>
+                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
+                    <a th:href="@{/editCA(id=${category.id})}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{/deleteCA/{id}(id=${category.id})}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+</body>
+
+</html>
